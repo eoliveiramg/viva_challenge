@@ -13,6 +13,8 @@ gem 'sqlite3'
 group :test do
   gem 'factory_girl_rails'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
+  gem 'faker'
+  gem 'database_cleaner'
 end
 
 group :development, :test do
