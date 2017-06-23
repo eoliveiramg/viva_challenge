@@ -15,3 +15,10 @@ bundle install
 
 rails s
 ```
+
+#### Before you start registering the new property, you need to import the city map
+Execute the API:
+`POST /api/v1/provinces`
+with body disponible in `/public/city_map.json`
+
+### Good! Now you are prepared to register yours properties
