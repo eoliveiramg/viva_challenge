@@ -1,0 +1,13 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  password:
+  pool: <%= ENV.fetch("PG_POOL", 32) %>
+
+development:
+  <<: *default
+  database: viva_challenge_development
+
+test:
+  <<: *default
+  database: viva_challenge_test
