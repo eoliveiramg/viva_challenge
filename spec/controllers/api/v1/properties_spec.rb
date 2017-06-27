@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'PropertiesController' do
-  render_views
-
+RSpec.describe Api::V1::PropertiesController, type: :controller do
   describe "POST 'create'" do
     subject { post :create, params: param_attributes, format: :json }
 
@@ -15,7 +13,7 @@ RSpec.describe 'PropertiesController' do
         description: Faker::Lorem.paragraph,
         beds: beds,
         baths: baths,
-        square_meters: square_meters
+        squareMeters: square_meters
       }
     end
     let(:x) { Faker::Number.between(0, 1400) }
@@ -26,13 +24,61 @@ RSpec.describe 'PropertiesController' do
 
     context 'when params is correct' do
       it 'creates a new Property' do
-        binding.pry
-        post :create, params: param_attributes, format: :json
         expect { subject }.to change(Property, :count).by(1)
       end
 
       it 'return status code equal 200' do
         expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when coords already exist' do
+      let(:x) { 500 }
+      let(:y) { 600 }
+
+      before { subject }
+
+      it 'creates a new Property' do
+        expect { subject }.to change(Property, :count).by(0)
+      end
+    end
+
+    context 'when beds is more then 5' do
+      let(:beds) { Faker::Number.between(6, 10) }
+
+      it 'not creates a new Property' do
+        expect { subject }.to change(Property, :count).by(0)
+      end
+
+      it 'returns unprocessable entity error' do
+        expect(subject.status).to eq(422)
+        expect(subject.message).to eq("Unprocessable Entity")
+      end
+    end
+
+    context 'when squareMeters is more then 240' do
+      let(:square_meters) { Faker::Number.between(600, 1000) }
+
+      it 'not creates a new Property' do
+        expect { subject }.to change(Property, :count).by(0)
+      end
+
+      it 'returns unprocessable entity error' do
+        expect(subject.status).to eq(422)
+        expect(subject.message).to eq("Unprocessable Entity")
+      end
+    end
+
+    context 'when baths is more then 4' do
+      let(:baths) { Faker::Number.between(5, 10) }
+
+      it 'not creates a new Property' do
+        expect { subject }.to change(Property, :count).by(0)
+      end
+
+      it 'returns unprocessable entity error' do
+        expect(subject.status).to eq(422)
+        expect(subject.message).to eq("Unprocessable Entity")
       end
     end
   end
