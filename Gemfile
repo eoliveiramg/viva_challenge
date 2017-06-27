@@ -8,7 +8,9 @@ end
 ruby '2.4.1'
 
 gem 'rails', '~> 5.1.1'
-gem 'sqlite3'
+gem 'pg'
+gem 'jbuilder'
+gem 'responders'
 
 group :test do
   gem 'factory_girl_rails'
