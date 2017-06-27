@@ -5,6 +5,7 @@ class Api::V1::PropertiesController < ApplicationController
 
   # POST /properties
   def create
+    binding.pry
     @property = PropertyFactory.build(properties_params)
     property.save!
 
@@ -41,6 +42,7 @@ class Api::V1::PropertiesController < ApplicationController
 
   def properties_params
     # whitelist params
+    binding.pry
     params.permit(:x, :y, :title, :price, :description, :beds, :baths, :squareMeters)
   end
 end
