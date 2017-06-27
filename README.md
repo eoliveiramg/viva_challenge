@@ -2,7 +2,7 @@
 
 * Ruby 2.4.1
 * Rails 5.1.1
-* SQLite 3.x
+* PostgreSql 9.5
 
 # How to prepare to the application run
 ```
@@ -12,6 +12,10 @@ cd viva_challenge/
 gem install bundler
 
 bundle install
+
+rails db:setup
+
+rails db:migrate
 
 rails s
 ```
