@@ -1,19 +1,19 @@
 class Api::V1::ProvincesController < ApplicationController
+  attr_reader :provinces
+
   def create
+    @provinces = ProvinceFactory.build(province_params)
+
     ActiveRecord::Base.transaction do
-      @response = prepare_provinces_to_save.map do |province_param|
-        Province.create!(province_param)
+      provinces.map do |province|
+        province.save!
       end
     end
 
-    json_response(@response, :created)
+    respond_with :api, :v1, @provinces, status: :created
   end
 
   private
-
-  def prepare_provinces_to_save
-    ProvinceParser.parse(province_params)
-  end
 
   def province_params
     # whitelist params
