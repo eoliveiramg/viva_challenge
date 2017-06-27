@@ -10,7 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170623003305) do
+ActiveRecord::Schema.define(version: 20170626230117) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "locations", force: :cascade do |t|
+    t.bigint "property_id"
+    t.bigint "province_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_locations_on_property_id"
+    t.index ["province_id"], name: "index_locations_on_province_id"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.float "price"
+    t.integer "lat"
+    t.integer "long"
+    t.integer "beds"
+    t.integer "baths"
+    t.integer "square_meters"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "provinces", force: :cascade do |t|
     t.string "name"
@@ -20,4 +45,6 @@ ActiveRecord::Schema.define(version: 20170623003305) do
     t.integer "bottom_right_y"
   end
 
+  add_foreign_key "locations", "properties"
+  add_foreign_key "locations", "provinces"
 end

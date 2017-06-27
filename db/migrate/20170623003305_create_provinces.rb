@@ -6,6 +6,8 @@ class CreateProvinces < ActiveRecord::Migration[5.1]
       t.integer :upper_left_y
       t.integer :bottom_right_x
       t.integer :bottom_right_y
+
+      t.timestamps
     end
   end
 end
