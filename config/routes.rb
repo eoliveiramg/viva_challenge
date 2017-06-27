@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       match '/provinces' => 'provinces#create', :via => :post
+      match '/properties' => 'properties#index', :via => :get
+      match '/properties' => 'properties#create', :via => :post
+      match '/properties/:id' => 'properties#show', :via => :get
     end
   end
 end
